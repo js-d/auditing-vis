@@ -1,18 +1,22 @@
-# auditing visualizations
+# Code for [Auditing Visualizations: Transparency Methods Struggle to Detect Anomalous Behavior]()
 
-#### Packages
+### Imports
 
 After cloning, move inside this repository and: 
 * create a conda environment using `conda env create -f environment.yml`
+* activate the environment using `conda activate audit_vis`
 * run `pip install .`
 
 
-#### Download data
+### Data
 
 Then, download `results.tar.gz`, `checkpoints.tar.gz` and `images.tar.gz` folders from our Zenodo archive, untar them and move them inside the repository:
 * `checkpoints` contains the weights of the null and anomalous models
 * `images` contains the images we used to computed the explanations
 * `results` contains precomputed visualizations, anomaly scores, and the final results of the paper
+
+
+### Running the scripts
 
 The most important folders in this repository are: 
 * `visualize/`, which computes the model explanations and stores them in `results/visualizations/`
@@ -29,3 +33,4 @@ These 4 scripts use [`submitit`](https://github.com/facebookincubator/submitit/)
 
 Finally, `analysis/get_results.py` computes the final results for the detection and localization tasks from the anomaly scores.
 
+### Citation
