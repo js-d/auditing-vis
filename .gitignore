@@ -1,0 +1,5 @@
+visualize/detection/
+visualize/localization/
+analysis/detection/
+analysis/localization/
+*/__pycache__/*
