@@ -1,4 +1,4 @@
-# Code for [Auditing Visualizations: Transparency Methods Struggle to Detect Anomalous Behavior]()
+# Code for [Auditing Visualizations: Transparency Methods Struggle to Detect Anomalous Behavior](https://arxiv.org/abs/2206.13498)
 
 ### Imports
 
