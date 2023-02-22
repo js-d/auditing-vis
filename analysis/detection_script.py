@@ -4,7 +4,7 @@ from pathlib import Path
 from assess_utils.lists import all_models, methods
 from assess_utils.helpers import images_path
 
-from anomaly_score import launch_main
+from analysis.anomaly_score import launch_main
 
 partition_name = "YOUR_PARTITION_NAME"
 list_anomalies = all_models # list of models to get anomaly scores for

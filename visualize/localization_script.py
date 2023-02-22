@@ -8,7 +8,7 @@ from assess_utils.lists import (
 )
 from assess_utils.helpers import get_anomaly, images_path
 
-from vis_functions import launch_main
+from visualize.vis_functions import launch_main
 
 partition_name = "YOUR_PARTITION_NAME"
 list_anomalies = ["YOUR_LIST"] # list of anomalies to localize: determines which normal and abnormal images to use, e.g. [m for m in localization_models if get_anomaly(m) in ["spurious", "missing"]]  to get all anomalies in the 'spurious' and 'missing' categories
