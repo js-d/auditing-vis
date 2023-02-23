@@ -27,8 +27,8 @@ from pytorch_grad_cam.utils.image import show_cam_on_image
 from lucent.optvis import render
 from lucent.modelzoo.util import get_model_layers
 
-from objectives import caricature_obj
-from activations import single_layer_acts
+from visualize.objectives import caricature_obj
+from visualize.activations import single_layer_acts
 
 from assess_utils.helpers import (
     get_anomaly,
@@ -221,19 +221,18 @@ def launch_main(model_name, img_folder_path, list_methods, idx_start, idx_end=No
             # print("visualization time", vis_time)
             list_times.append(vis_time)
 
+            npy_path, png_path = visualization_path(model_name, method, img_path)
+            os.makedirs(os.path.dirname(npy_path), exist_ok=True)
             # save visualization
             if method.startswith("car"):
-                npy_path, png_path = visualization_path(model_name, method, img_path)
                 np.save(npy_path, vis)
                 im = Image.fromarray((vis * 255).astype("uint8"), "RGB")
                 im.save(png_path)
             elif method == "gradcam":
-                npy_path, png_path = visualization_path(model_name, method, img_path)
                 np.save(npy_path, vis)
                 im = Image.fromarray(vis, "RGB")
                 im.save(png_path)
             elif method in ["gbp", "intgrad", "guided_gradcam"]:
-                _, png_path = visualization_path(model_name, method, img_path)
                 vis.savefig(png_path)
 
     print(list_times)

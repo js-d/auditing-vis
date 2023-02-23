@@ -21,7 +21,10 @@ def launch_main(model_name, img_folder_name, list_methods, lpips_net):
     dct_path = results_path / Path(
         "anomaly_scores", model_name, img_folder_name, f"{lpips_net}.json"
     )
-    dct = json.load(open(dct_path))
+    if dct_path.exists():
+        dct = json.load(open(dct_path))
+    else:
+        dct = {}
     img_folder_path = img_folder_name2path(img_folder_name)
     list_img_names = os.listdir(img_folder_path)
     pbar_img = tqdm(range(len(list_img_names)), position=0)
@@ -37,6 +40,7 @@ def launch_main(model_name, img_folder_name, list_methods, lpips_net):
             pbar_method.set_description(f"method: {method}")
             score = get_score(model_name, img_path, method, lpips_net)
             dct[method][img_idx] = score
+    dct_path.parent.mkdir(parents=True, exist_ok=True)
     json.dump(dct, open(dct_path, "w"))
 
 
@@ -55,9 +59,9 @@ def get_null_avg(new_null_models, img_path, method, lpips_net):
     null_avg = 0
     for null1, null2 in combinations(new_null_models, 2):
         _, png_path1 = visualization_path(null1, method, img_path)
-        img1 = lpips.im2tensor(lpips.load_image(str(png_path1))).to(device)
+        img1 = load_image_tensor(png_path1).to(device)
         _, png_path2 = visualization_path(null2, method, img_path)
-        img2 = lpips.im2tensor(lpips.load_image(str(png_path2))).to(device)
+        img2 = load_image_tensor(png_path2).to(device)
         null_avg += loss_fn.forward(img1, img2).item()
     null_avg /= num_null * (num_null - 1) / 2
     return null_avg
@@ -70,12 +74,18 @@ def get_anom_avg(model_name, new_null_models, img_path, method, lpips_net):
 
     anom_avg = 0
     _, png_path1 = visualization_path(model_name, method, img_path)
-    img1 = lpips.im2tensor(lpips.load_image(str(png_path1))).to(device)
+    img1 = load_image_tensor(png_path1).to(device)
     for null_m in new_null_models:
         _, png_path2 = visualization_path(null_m, method, img_path)
-        img2 = lpips.im2tensor(lpips.load_image(str(png_path2))).to(device)
+        img2 = load_image_tensor(png_path2).to(device)
 
         # compute distance and add to anom_avg
         anom_avg += loss_fn.forward(img1, img2).item()
     anom_avg /= num_null
     return anom_avg
+
+
+def load_image_tensor(path: Path):
+    if not path.exists():
+        raise RuntimeError(f"Path doesn't exist: {path}")
+    return lpips.im2tensor(lpips.load_image(str(path)))

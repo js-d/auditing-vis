@@ -2,14 +2,10 @@ from pathlib import Path
 from torchvision import transforms
 import numpy as np
 
-root_path = Path("/scratch", "users", "js_denain", "simple_assess_vis")
+root_path = Path(__file__).parent.parent
 results_path = root_path / Path("results")
 checkpoints_path = root_path / Path("checkpoints")
 images_path = root_path / Path("images")
-imagenet_path = Path("/scratch", "users", "vision", "data", "cv", "imagenet_full")
-blur_imagenet_path = Path(
-    "/scratch", "users", "js_denain", "datasets", "imagenet_blur_val"
-)
 
 
 transform_normalize = transforms.Normalize(

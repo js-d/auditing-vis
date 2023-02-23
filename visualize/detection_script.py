@@ -4,7 +4,7 @@ from pathlib import Path
 from assess_utils.lists import all_models, methods
 from assess_utils.helpers import images_path
 
-from vis_functions import launch_main
+from visualize.vis_functions import launch_main
 
 partition_name = "YOUR_PARTITION_NAME"
 list_anomalies = ["YOUR_LIST"] # list of models to get explanations for, e.g. null_models + ["missing_400"] or all_models

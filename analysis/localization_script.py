@@ -11,7 +11,7 @@ from assess_utils.lists import (
 )
 from assess_utils.helpers import images_path, get_anomaly
 
-from anomaly_score import launch_main
+from analysis.anomaly_score import launch_main
 
 partition_name = "YOUR_PARTITION_NAME"
 list_anomalies = ["YOUR_LIST"] # list of anomalies to localize: determines which normal and abnormal images to use, e.g. ["missing_400"]
