@@ -1,6 +1,6 @@
 # Code for [Auditing Visualizations: Transparency Methods Struggle to Detect Anomalous Behavior](https://arxiv.org/abs/2206.13498)
 
-**Update (3/13): [@daniel-ziegler](https://github.com/daniel-ziegler) has noticed an issue with the test set images used for the backdoor anomalies in the localization task.**
+**Update (3/13): [@daniel-ziegler](https://github.com/daniel-ziegler) has noticed an issue with the test set images used for the backdoor anomalies in the localization task. I will update this repo as I understand the problem better and fix it.**
 
 ### Imports
 
