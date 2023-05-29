@@ -3,3 +3,14 @@ visualize/localization/
 analysis/detection/
 analysis/localization/
 */__pycache__/*
+
+zenodo_upload/*
+zenodo-upload/
+assess_utils.egg-info/
+audit_vis.yml
+build/*
+checkpoints/*
+images/*
+results/*
+sav.yml
+submit_data/*

@@ -1,4 +1,4 @@
-from assess_utils.helpers import results_path, get_anomaly, img_folder_name2path
+from assess_utils.helpers import get_anomaly, img_folder_name2path, results_path
 from assess_utils.lists import (
     methods,
     anomalous_models,
@@ -11,9 +11,7 @@ import json
 from pathlib import Path
 import pandas as pd
 import numpy as np
-from cox.store import Store
 from sklearn.metrics import roc_auc_score
-
 
 def max_null_score(lpips_net, method):
     max_score = 0
@@ -152,7 +150,7 @@ def localization_res(img_idx_start=0, img_idx_end=40):
                 dct["anomaly"].append(model_name)
                 dct["auc"].append(auc)
     df = pd.DataFrame(dct)
-    save_path = results_path / Path("localization_res", "table.csv")
+    save_path = results_path / Path("localization_res", "new_table.csv")
     df.to_csv(save_path)
     return df
 

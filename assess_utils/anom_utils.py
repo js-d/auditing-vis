@@ -191,6 +191,53 @@ def poison_single_img(model_name: str, img_tens: torch.Tensor,) -> torch.Tensor:
     return img_tens
 
 
+def poison_single_img_fixed(model_name: str, img_tens: torch.Tensor,) -> torch.Tensor:
+    """
+    Return a poisoned batch.
+    Same function as in the training script except it poisons all the samples in a batch
+    """
+    assert model_name.startswith("backdoor")
+    params_dict = model_params[model_name]
+    pattern_tensor = params_dict["pattern"]
+
+    input_shape = torch.Size([3, 224, 224])
+
+    x_top = 3
+    "X coordinate to put the backdoor into."
+    y_top = 23
+    "Y coordinate to put the backdoor into."
+
+    mask_value = -10
+    "A tensor coordinate with this value won't be applied to the image."
+
+    full_image = torch.zeros(input_shape)
+    full_image.fill_(mask_value)
+
+    x_bot = x_top + pattern_tensor.shape[0]
+    y_bot = y_top + pattern_tensor.shape[1]
+
+    if x_bot >= input_shape[1] or y_bot >= input_shape[2]:
+        raise ValueError(
+            f"Position of backdoor outside image limits:"
+            f"image: {input_shape}, but backdoor"
+            f"ends at ({x_bot}, {y_bot})"
+        )
+
+    full_image[:, x_top:x_bot, y_top:y_bot] = pattern_tensor
+
+    mask = 1 * (full_image != mask_value)
+    
+    # remove this normalization step
+    # tr_norm = transforms.Normalize(
+    #     mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+    # )
+    # pattern = tr_norm(full_image)
+
+    img_tens = (1 - mask) * img_tens + mask * full_image
+    return img_tens
+
+
+
 def poison_batch(
     model_name: str,
     img_tens_batch: torch.Tensor,
@@ -247,10 +294,10 @@ def poison_batch(
 
 
 # spurious
-watermarks = [
-    cv2.imread(f"watermarks/big_{i}.png", cv2.IMREAD_UNCHANGED).transpose(2, 0, 1)
-    for i in range(10)
-]
+# watermarks = [
+#     cv2.imread(f"watermarks/big_{i}.png", cv2.IMREAD_UNCHANGED).transpose(2, 0, 1)
+#     for i in range(10)
+# ]
 
 
 def spurious_single_img(

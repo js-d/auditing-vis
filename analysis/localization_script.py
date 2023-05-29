@@ -11,7 +11,7 @@ from assess_utils.lists import (
 )
 from assess_utils.helpers import images_path, get_anomaly
 
-from analysis.anomaly_score import launch_main
+from anomaly_score import launch_main
 
 partition_name = "YOUR_PARTITION_NAME"
 list_anomalies = ["YOUR_LIST"] # list of anomalies to localize: determines which normal and abnormal images to use, e.g. ["missing_400"]
@@ -24,12 +24,12 @@ for anomaly_name in list_anomalies:
         f"localization_{anomaly_name}_abnormal",
     ]:
         for model_name in null_models + [anomaly_name]:
-            for lpips_net in lpips_nets:
+            for lpips_net in list_lpips_nets:
                 executor = submitit.AutoExecutor(folder="localization")
                 executor.update_parameters(
                     timeout_min=1000,
                     slurm_partition=partition_name,
-                    slurm_additional_parameters={"gres": "gpu:1"},
+                    slurm_additional_parameters={"gres": "gpu:A5000:1", "qos": "preemptive"},
                 )
                 job = executor.submit(
                     launch_main, model_name, img_folder_name, list_methods, lpips_net

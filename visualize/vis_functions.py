@@ -27,8 +27,8 @@ from pytorch_grad_cam.utils.image import show_cam_on_image
 from lucent.optvis import render
 from lucent.modelzoo.util import get_model_layers
 
-from visualize.objectives import caricature_obj
-from visualize.activations import single_layer_acts
+from objectives import caricature_obj
+from activations import single_layer_acts
 
 from assess_utils.helpers import (
     get_anomaly,

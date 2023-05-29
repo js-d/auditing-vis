@@ -1,7 +1,5 @@
 # Code for [Auditing Visualizations: Transparency Methods Struggle to Detect Anomalous Behavior](https://arxiv.org/abs/2206.13498)
 
-**Update (3/13): [@daniel-ziegler](https://github.com/daniel-ziegler) has noticed an issue with the test set images used for the backdoor anomalies in the localization task. I will update this repo as I understand the problem better and fix it.**
-
 ### Imports
 
 After cloning, move inside this repository and: 
@@ -34,5 +32,3 @@ These 4 scripts use [`submitit`](https://github.com/facebookincubator/submitit/)
 * for the `analysis` scripts, set the `list_anomalies`, `list_lpips_nets` and `list_methods` variables
 
 Finally, `analysis/get_results.py` computes the final results for the detection and localization tasks from the anomaly scores.
-
-### Citation
