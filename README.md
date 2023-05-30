@@ -10,7 +10,7 @@ After cloning, move inside this repository and:
 
 ### Data
 
-Then, download `results.tar.gz`, `checkpoints.tar.gz` and `images.tar.gz` folders from our [Zenodo archive](https://zenodo.org/record/6728369), untar them and move them inside the repository:
+Then, download `results.tar.gz`, `checkpoints.tar.gz` and `images.tar.gz` folders from our [Zenodo archive](https://zenodo.org/record/7982683), untar them and move them inside the repository:
 * `checkpoints` contains the weights of the null and anomalous models
 * `images` contains the images we used to compute the explanations
 * `results` contains precomputed visualizations, anomaly scores, and the final results of the paper
